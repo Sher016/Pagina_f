@@ -34,9 +34,12 @@ services:
         volumes:
             - ./frontend:/opt/frontend
         working_dir: /opt/frontend
-    nginx:
-        image: nginx:latest
-        volumes:
-            - ./frontend/build:/usr/share/nginx/html
-        ports:
-            - 8080:80
+        command: sh -c "npm install && npm run dev"
+        ports: 
+            - 3000:3000
+    # nginx:
+    #     image: nginx:latest
+    #     volumes:
+    #         - ./frontend/build:/usr/share/nginx/html
+    #     ports:
+    #         - 8080:80

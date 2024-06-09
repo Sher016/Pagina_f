@@ -13,9 +13,7 @@ function App() {
     if (isLogged) {
       // llama a API obtiene información del usuario
       const currentUser = {
-        user: "@Juan",
-        name: "Juan",
-        profileImage: "https://randomuser.me/api/portraits/men/1.jpg",
+        user: localStorage.getItem("name")
       }
       setUser(currentUser)
       localStorage.setItem('isLogged', isLogged)

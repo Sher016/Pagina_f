@@ -1,6 +1,6 @@
 // import { useNavigate } from 'react-router-dom';
 import CourseCard from '../../components/CourseCard/CourseCard';
-import { getCourses } from '../../../dbcourses';
+// import { getCourses } from '../../../dbcourses';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -9,11 +9,11 @@ function Courses() {
     const [courseData, setListcursos] = useState([]);
     useEffect(() => {
         fetch('http://localhost:5000/courses')
-          .then((response) => response.json())
-          .then((data) => {
-            setListcursos(data)
-          })
-      }, [])
+            .then((response) => response.json())
+            .then((data) => {
+                setListcursos(data)
+            })
+    }, [])
 
     // const navigate = useNavigate();
 
@@ -24,13 +24,13 @@ function Courses() {
     //     { id: 4, text: 'Fisica', route: '/fisica' },
     //     { id: 4, text: 'Electronica', route: '/electronica' },
 
-   //const courseData = getCourses();
+    //const courseData = getCourses();
 
     return (
         <>
             <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
                 <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-10">
-                    <CourseCard courseData={courseData}/>
+                    <CourseCard courseData={courseData} />
                 </div>
             </div>
         </>

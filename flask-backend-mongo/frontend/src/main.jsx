@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Home from './views/Home/Home.jsx';
 import Login from './views/Login/Login.jsx';
+import Signup from './views/Signup/Signup.jsx';
 import App from './App.jsx';
 import './index.css'
 import '@fontsource-variable/inter';
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
           {
             path: 'courses/:courseId',
             element: <CourseDetails />
+          },
+          {
+            path: 'signup',
+            element: <Signup />
           }
         ]
       },

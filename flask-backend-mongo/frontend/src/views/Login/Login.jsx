@@ -2,10 +2,10 @@ import { useState } from "react"
 import { useNavigate, useOutletContext } from "react-router-dom"
 import logo from '../../assets/images/e-logo.jpg'
 
-const USER_LOGIN_DEFAULT = {
-  username: 'juan',
-  password: '123456'
-}
+// const USER_LOGIN_DEFAULT = {
+//   username: 'juan',
+//   password: '123456'
+// }
 
 function Login() {
 
@@ -14,16 +14,42 @@ function Login() {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [status, setStatus] = useState('');
+  const [user, setUser] = useState('');
 
-  function login(event) {
-    event.preventDefault()
+  async function login(event) {
+    event.preventDefault();
 
-    // TODO deberia consumir un API de login contra el servidor, normalmente se utiliza algo como JWT
-    if (username === USER_LOGIN_DEFAULT.username && password === USER_LOGIN_DEFAULT.password) {
-      setIsLogged(true)
-      navigate('/home')
-    } else {
-      alert('usuario incorrecto')
+    try {
+      const response = await fetch('http://localhost:5000/validateStudent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setUser(data);
+        setStatus(data.status);
+
+        if (data.status === 'Valid login') {
+          setIsLogged(true);
+          localStorage.setItem("name", data.studentName);
+          navigate('/home');
+        } else {
+          alert('Usuario incorrecto');
+        }
+      } else {
+        setStatus(data.status);
+        setUser(data);
+        alert('Usuario incorrecto');
+      }
+    } catch (error) {
+      console.error('Error during fetch:', error);
+      setStatus('An error occurred. Please try again.');
     }
   }
 
@@ -94,7 +120,7 @@ function Login() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           ¿Aún no tiene cuenta?{' '}
-          <a href="#" className="font-semibold leading-6 text-[#00df9a] hover:text-[#008a5f]">
+          <a href="#" className="font-semibold leading-6 text-[#00df9a] hover:text-[#008a5f]" onClick={() => navigate('/signup')}>
             Regístrese gratis.
           </a>
         </p>

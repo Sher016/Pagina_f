@@ -44,3 +44,6 @@ RUN userdel "$FLASK_USER" && addgroup --system --gid "$FLASK_USER_ID" "$FLASK_US
 RUN chown -R "$FLASK_USER_ID":"$FLASK_USER_ID" "/opt/$VENV_NAME/"
 
 USER "$FLASK_USER"
+
+# EXPOSE 5000
+# CMD ["sleep", "123456"] 

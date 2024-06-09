@@ -10,6 +10,8 @@ const Navbar = () => {
     // State to manage the navbar's visibility
     const [nav, setNav] = useState(false);
     const navigate = useNavigate();
+    const name = localStorage.getItem("name")
+    //console.log(name);
 
     // Toggle function to handle the navbar's display
     const handleNav = () => {
@@ -17,7 +19,7 @@ const Navbar = () => {
     };
 
     const [setIsLogged] = useOutletContext()
-    const user = useContext(UserContext);
+    // const user = useContext(UserContext);
 
     // Array containing navigation items
     const navItems = [
@@ -25,13 +27,14 @@ const Navbar = () => {
         { id: 2, text: 'Cursos', route: '/courses' },
         { id: 3, text: 'Nosotros', route: '/about' },
         { id: 4, text: 'Contacto', route: '/contact' },
-        { id: 5, text: user?.name, route: '' },
+        { id: 5, text: name, route: '/home' },
         { id: 6, text: 'Salir', route: '' }
     ];
 
     function setClick(item) {
         if (item.id === 6) {
             setIsLogged(false)
+            localStorage.clear()
         } else {
             navigate(item.route)
         }
@@ -41,22 +44,10 @@ const Navbar = () => {
         <>
             <div className='bg-black flex justify-between items-center h-24 max-w-[1920px] mx-auto px-4 text-white'>
                 {/* Logo */}
-                <img className='logo w-20 mr-5' src={logo}/>
-                
+                <img className='logo w-20 mr-5' src={logo} />
+
                 <h1 className='w-full text-3xl font-bold text-[#00df9a]'>E-Learning</h1>
 
-                {/* Desktop Navigation */}
-                {/* <ul className='hidden md:flex'>
-                    {navItems.map((item) => (
-                        <li
-                            key={item.id}
-                            className='sm:align-middle md:align-bottom lg:align-text-top xl:align-text-bottom p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'
-                            onClick={() => navigate(item.route)}
-                        >
-                            {item.text}
-                        </li>
-                    ))}
-                </ul> */}
                 <ul className='hidden md:flex'>
                     {navItems.map((item) => (
                         <li
