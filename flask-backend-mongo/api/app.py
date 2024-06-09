@@ -56,8 +56,36 @@ def getCourse(id):
     finally:
         con.close()
         print("Connection closed")
-        
-@app.route("/validateStudent", methods = ['POST'])
+
+@app.route("/courses/<code>", methods=['PUT'])
+def update(code):
+    data = request.get_json()
+    con = db.get_connection()
+    DBC = con.DB
+    try:
+        courses = DBC.Courses
+        courses.replace_one(
+            {'id': code},
+            data, True
+        )
+        return jsonify({"message":f"Updated id: {code}"})
+    finally:
+        con.close()
+        print("Connection closed")
+
+@app.route("/courses/<code>", methods=['DELETE'])
+def delete(code):
+    con = db.get_connection()
+    DBC = con.DB
+    try:
+        courses = DBC.Courses
+        courses.delete_one({'id': code})
+        return jsonify({"message":f"Deleted id: {code}"})
+    finally:
+        con.close()
+        print("Connection closed")
+    
+@app.route("/validateStudent", methods = ['GET'])
 def findUser():
     data = request.json
     con = db.get_connection()
@@ -80,7 +108,35 @@ def findUser():
     finally:
         con.close()
         print("Connection closed")
-    
+
+@app.route("/student/<username>", methods=['PUT'])
+def update_student(username):
+    data = request.get_json()
+    con = db.get_connection()
+    DBC = con.DB
+    try:
+        students = DBC.Students
+        students.replace_one(
+            {'Username': username},
+            data, True
+        )
+        return jsonify({"message":f"Updated id: {username}"})
+    finally:
+        con.close()
+        print("Connection closed")
+
+@app.route("/student/<username>", methods=['DELETE'])
+def delete_student(username):
+    con = db.get_connection()
+    DBC = con.DB
+    try:
+        students = DBC.Students
+        students.delete_one({'Username': username})
+        return jsonify({"message":f"Deleted id: {username}"})
+    finally:
+        con.close()
+        print("Connection closed")
+
 @app.route("/postStudent", methods = ['POST'])
 def signup():
     data = request.json

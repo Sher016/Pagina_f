@@ -74,3 +74,8 @@ services:   # Block for services definition
 
 * A exec form in docker is: entrypoint + cmd. (An entrypoint [example](https://github.com/Monadical-SAS/oddslingers.poker/blob/main/bin/entrypoint.sh))
 * [https://12factor.net/](https://12factor.net/)
+// pasos para correr el docker
+usar lo siguientes comandos: 
+docker-compose build 
+docker-compose up -d
+docker-compose exec mongo bash
